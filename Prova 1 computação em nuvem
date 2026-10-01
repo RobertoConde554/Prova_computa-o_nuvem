@@ -1,0 +1,35 @@
+cat > index.html <<'EOF'
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+ <meta charset="UTF-8">
+ <title>Reservas</title>
+</head>
+<body>
+ <h1>Reservas abertas</h1>
+</body>
+</html>
+EOF
+
+docker run -d --name reservas -p 8086:80 nginx:alpine
+
+docker cp index.html reservas:/usr/share/nginx/html/index.html
+docker ps
+
+curl http://localhost:8086
+
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                  NAMES
+xxxxxxxxxxxx   nginx:alpine   "/docker-entrypoint.…"   ...             Up ...         0.0.0.0:8086->80/tcp   reservas
+
+curl http://localhost:8086
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+ <meta charset="UTF-8">
+ <title>Reservas</title>
+</head>
+<body>
+ <h1>Reservas abertas</h1>
+</body>
+</html>
